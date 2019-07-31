@@ -1,26 +1,40 @@
 import React, { Component } from 'react';
-import './App.css';
 
 import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
 import Items from './components/Items/Items';
+import './App.css';
+import axios from './axios-hn.js';
 
-const LIST = [
-    { title: 'A Message to Our Customers'},
-    { title: 'Switch from Chrome to Firefox'},
-    { title: 'UK votes to leave EU'},
-    { title: 'A Message to you'}
-  ]
+const LIST = []
 
 class App extends Component {
   state = {
     list: LIST 
   }
 
+  async componentDidMount() {
+    try {
+      const fetchingData = await axios.get('topstories.json')
+      const itemIds = await fetchingData.data
+      itemIds.forEach((id) => {
+        axios.get(`item/${id}.json`)
+          .then((res) => LIST.push({ 
+            title: res.data.title,
+            score: res.data.score,
+            url: res.data.url,
+            author: res.data.by
+          }))
+      })
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   matchItemHandler = (event) => {
-    const list = LIST 
+    const list = [...LIST] 
     const newList = list.filter((item) => {
-        return item.title.includes(event.target.value)
+        return item.title.toLowerCase().includes(event.target.value.toLowerCase())
     })
     this.setState({list: newList});
   }

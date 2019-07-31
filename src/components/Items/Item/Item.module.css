@@ -4,3 +4,13 @@
   background-color: #f6f6ef;
   padding: 3px 15px 10px;
 }
+
+.Subtitles {
+  font-size: 80%;
+  color: grey;
+}
+
+a {
+  text-decoration: none;
+  color: grey;
+}

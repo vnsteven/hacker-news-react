@@ -6,15 +6,19 @@ import styles from './Items.module.css';
 
 class Items extends Component {
   render () {
+    console.log(this.props)
     return (
       <div className={styles.List}>
-          {this.props.items ? this.props.items.map((item) => {
+          {this.props.items.map((item) => {
             return (
               <Item 
                 title={item.title} 
+                score={item.score}
+                url={item.url}
+                author={item.author}
               /> 
             )
-          }) :  null}
+          })}
       </div>
     )
   }

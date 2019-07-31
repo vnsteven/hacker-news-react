@@ -1,13 +1,12 @@
-footer {
-  display: flex;
-  justify-content: center;
-}
-
 ul {
+  display:flex;
+  justify-content: center;
   position: absolute;
   bottom: 0;
-  display: flex;
   list-style: none;
+  background-color: white;
+  height: 30px;
+  width: 100%;
 }
 
 li {

@@ -7,6 +7,7 @@ class Item extends Component {
     return (
       <div className={styles.Item}>
         <p>{this.props.title}</p>
+        <p className={styles.Subtitles}>{this.props.score} points | {this.props.author} | <a href={this.props.url} target="_blank">({this.props.url})</a></p>
       </div>
     )
   }

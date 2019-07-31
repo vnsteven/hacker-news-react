@@ -1,3 +1,7 @@
 .List {
   padding-top: 60px;
+  display: block;
+  height: 80vh;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
 }
