@@ -26,6 +26,7 @@ class App extends Component {
             author: res.data.by
           }))
       })
+      this.setState({list: LIST})
     } catch (err) {
       console.log(err)
     }

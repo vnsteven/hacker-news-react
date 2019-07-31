@@ -6,7 +6,6 @@ import styles from './Items.module.css';
 
 class Items extends Component {
   render () {
-    console.log(this.props)
     return (
       <div className={styles.List}>
           {this.props.items.map((item) => {

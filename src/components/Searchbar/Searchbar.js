@@ -9,7 +9,7 @@ const searchbar = (props) => (
     </div>
     <input 
       type="text" 
-      placeholder="Search stories by title, url or author" 
+      placeholder="Search stories by title" 
       onChange={props.changed}/>
   </div>
 );
