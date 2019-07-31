@@ -1,0 +1,15 @@
+footer {
+  display: flex;
+  justify-content: center;
+}
+
+ul {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  list-style: none;
+}
+
+li {
+  margin: 3px;
+}
