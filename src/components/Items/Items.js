@@ -16,7 +16,7 @@ class Items extends Component {
               score={item.score}
               url={item.url}
               author={item.author}
-              clicked={(event) => this.props.clicked(item.id)}
+              doubleClicked={(event) => this.props.doubleClicked(item.id)}
             />
           );
         })}

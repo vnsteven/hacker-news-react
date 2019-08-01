@@ -64,8 +64,11 @@ class App extends Component {
     }
   };
 
-  toggleItemHandler = (e) => {
-    const clickedElement = this.state.initialList.find((el) => el.id === e);
+  deleteItemHandler = (item) => {
+    const list = [...this.state.list];
+    const element = this.state.initialList.find((el) => el.id === item);
+    list.splice(list.indexOf(element), 1);
+    this.setState({ list: list, count: list.length });
   };
 
   randomChangedHandler = () => {
@@ -94,7 +97,7 @@ class App extends Component {
           randomChanged={this.randomChangedHandler}
           displayAll={this.displayAllHandler}
         />
-        <Items items={this.state.list} clicked={this.toggleItemHandler} />
+        <Items items={this.state.list} doubleClicked={this.deleteItemHandler} />
         <Footer />
       </div>
     );
