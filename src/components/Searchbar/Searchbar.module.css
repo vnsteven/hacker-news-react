@@ -15,15 +15,14 @@ i {
 
 .Searchbar input {
   height: 40px;
-  width: 40rem;
+  width: 30rem;
   outline: none;
   border: none;
   font-size: 15px;
-  margin-right: 150px;
 }
 
-@media screen and (max-width: 1000px) {
+@media (max-width: 900px) {
   .Searchbar input {
-    width: 90%;
+    width: 16rem;
   }
 }

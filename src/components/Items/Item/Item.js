@@ -6,7 +6,7 @@ class Item extends Component {
   render() {
     return (
       <div
-        className={styles['Item']}
+        className={styles.Item}
         onDoubleClick={this.props.doubleClicked}
         onClick={this.props.clicked}>
         <p>
