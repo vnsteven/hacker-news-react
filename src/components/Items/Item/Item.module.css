@@ -2,7 +2,7 @@
   width: 100%;
   border: 1px solid #eeeeee;
   background-color: #f6f6ef;
-  padding: 3px 15px 10px;
+  padding: 1px 15px 0px;
 }
 
 .Subtitles {
@@ -10,7 +10,12 @@
   color: grey;
 }
 
-a {
+.Link {
   text-decoration: none;
   color: grey;
+}
+
+.Title {
+  text-decoration: none;
+  color: black;
 }

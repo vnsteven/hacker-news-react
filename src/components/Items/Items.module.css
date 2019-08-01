@@ -1,9 +1,9 @@
 .List {
   display: block;
   height: 84vh;
-  width: 100vw;
+  width: 100%;
+  padding-top: 110px;
   margin: 0;
-  overflow-y: scroll;
   overflow-x: hidden;
   scroll-behavior: smooth;
 }

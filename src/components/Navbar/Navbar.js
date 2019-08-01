@@ -20,7 +20,7 @@ class Navbar extends Component {
           </div>
           <div></div>
         </header>
-        <Sortbar changed={this.props.sortbarChanged} />
+        <Sortbar changed={this.props.sortbarChanged} results={this.props.results} />
       </Aux>
     );
   }

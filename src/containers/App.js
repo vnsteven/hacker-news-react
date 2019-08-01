@@ -1,25 +1,26 @@
 import React, { Component } from 'react';
 
-import Navbar from './components/Navbar/Navbar';
-import Footer from './components/Footer/Footer';
-import Items from './components/Items/Items';
+import Navbar from '../components/Navbar/Navbar';
+import Footer from '../components/Footer/Footer';
+import Items from '../components/Items/Items';
 import './App.css';
 import axios from './axios-hn.js';
 
-const LIST = [];
-
 class App extends Component {
   state = {
-    list: LIST
+    list: [],
+    initialList: [],
+    count: 0
   };
 
   async componentDidMount() {
     try {
       const fetchingData = await axios.get('topstories.json');
       const itemIds = await fetchingData.data;
+      const list = [];
       itemIds.forEach((id) => {
         axios.get(`item/${id}.json`).then((res) =>
-          LIST.push({
+          list.push({
             id: res.data.id,
             title: res.data.title,
             score: res.data.score,
@@ -28,33 +29,43 @@ class App extends Component {
           })
         );
       });
+      this.setState({ initialList: list });
     } catch (err) {
       console.log(err);
     }
   }
 
   matchItemHandler = (event) => {
-    const list = [...LIST];
+    const list = [...this.state.initialList];
     const newList = list.filter((item) => {
       return item.title
         .toLowerCase()
         .includes(event.target.value.toLowerCase());
     });
-    this.setState({ list: newList });
+    this.setState({ list: newList, count: newList.length });
   };
 
   sortItemHandler = (event) => {
     const list = [...this.state.list];
     if (event.target.value === 'Title') {
       const sortedList = list.sort((a, b) => (a.title > b.title ? 1 : -1));
-      this.setState({ list: sortedList });
+      this.setState({ list: sortedList, count: sortedList.length });
     } else if (event.target.value === 'Popularity') {
       const sortedList = list.sort((a, b) => (a.score > b.score ? -1 : 1));
-      this.setState({ list: sortedList });
+      this.setState({ list: sortedList, count: sortedList.length });
     } else if (event.target.value === 'Unpopularity') {
       const sortedList = list.sort((a, b) => (a.score > b.score ? 1 : -1));
-      this.setState({ list: sortedList });
+      this.setState({ list: sortedList, count: sortedList.length });
+    } else if (event.target.value === 'All') {
+      this.setState({
+        list: this.state.initialList,
+        count: this.state.initialList.length
+      });
     }
+  };
+
+  toggleItemHandler = (e) => {
+    const clickedElement = this.state.initialList.find((el) => el.id === e);
   };
 
   render() {
@@ -63,8 +74,9 @@ class App extends Component {
         <Navbar
           searchbarChanged={this.matchItemHandler}
           sortbarChanged={this.sortItemHandler}
+          results={this.state.count}
         />
-        <Items items={this.state.list} />
+        <Items items={this.state.list} clicked={this.toggleItemHandler} />
         <Footer />
       </div>
     );

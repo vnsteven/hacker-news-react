@@ -8,13 +8,14 @@ const sortbar = (props) => (
       <form>
         Sort by
         <select onChange={props.changed}>
-          <option></option>
+          <option>All</option>
           <option>Popularity</option>
           <option>Unpopularity</option>
           <option>Title</option>
         </select>
       </form>
     </div>
+    <p className={styles.Results}>{props.results} results</p>
   </header>
 );
 

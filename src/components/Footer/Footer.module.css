@@ -6,6 +6,7 @@ ul {
   list-style: none;
   background-color: white;
   height: 1px;
+  padding: 20px;
   width: 100%;
 }
 
