@@ -68,6 +68,22 @@ class App extends Component {
     const clickedElement = this.state.initialList.find((el) => el.id === e);
   };
 
+  randomChangedHandler = () => {
+    const list = [...this.state.initialList];
+    const randomNumber = Math.floor(Math.random() * (list.length - 1));
+    this.setState({
+      list: [list[randomNumber]],
+      count: 1
+    });
+  };
+
+  displayAllHandler = () => {
+    this.setState({
+      list: this.state.initialList,
+      count: this.state.initialList.length
+    });
+  };
+
   render() {
     return (
       <div className="App">
@@ -75,6 +91,8 @@ class App extends Component {
           searchbarChanged={this.matchItemHandler}
           sortbarChanged={this.sortItemHandler}
           results={this.state.count}
+          randomChanged={this.randomChangedHandler}
+          displayAll={this.displayAllHandler}
         />
         <Items items={this.state.list} clicked={this.toggleItemHandler} />
         <Footer />
