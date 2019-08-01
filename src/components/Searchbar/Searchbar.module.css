@@ -21,3 +21,9 @@ i {
   font-size: 15px;
   margin-right: 150px;
 }
+
+@media screen and (max-width: 900px) {
+  .Searchbar input {
+    width: 70%;
+  }
+}

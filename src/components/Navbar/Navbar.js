@@ -1,23 +1,28 @@
-import React, { Component }from 'react';
+import React, { Component } from 'react';
 
 import Logo from '../Logo/Logo';
 import Searchbar from '../Searchbar/Searchbar';
+import Sortbar from '../Sortbar/Sortbar';
+import Aux from '../../hoc/Aux';
 
 import styles from './Navbar.module.css';
 
 class Navbar extends Component {
-  render () {
+  render() {
     return (
-      <header className={styles.Navbar}>
-        <div>
-          <Logo />
-        </div>
-        <div className={styles.Searchbar}>
-          <Searchbar changed={this.props.changed}/>
-        </div>
-        <div></div>
-      </header>
-    )
+      <Aux>
+        <header className={styles.Navbar}>
+          <div>
+            <Logo />
+          </div>
+          <div className={styles.Searchbar}>
+            <Searchbar changed={this.props.searchbarChanged} />
+          </div>
+          <div></div>
+        </header>
+        <Sortbar changed={this.props.sortbarChanged} />
+      </Aux>
+    );
   }
 }
 

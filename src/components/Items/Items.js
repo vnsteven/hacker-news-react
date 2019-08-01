@@ -5,21 +5,22 @@ import Item from './Item/Item';
 import styles from './Items.module.css';
 
 class Items extends Component {
-  render () {
+  render() {
     return (
       <div className={styles.List}>
-          {this.props.items.map((item) => {
-            return (
-              <Item 
-                title={item.title} 
-                score={item.score}
-                url={item.url}
-                author={item.author}
-              /> 
-            )
-          })}
+        {this.props.items.map((item) => {
+          return (
+            <Item
+              key={item.id}
+              title={item.title}
+              score={item.score}
+              url={item.url}
+              author={item.author}
+            />
+          );
+        })}
       </div>
-    )
+    );
   }
 }
 

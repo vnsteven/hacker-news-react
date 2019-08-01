@@ -1,13 +1,28 @@
 .Logo {
   display: flex;
   margin: 7px;
+  cursor: pointer;
 }
 
 .Logo img {
   height: 45px;
 }
 
-div .Title {
-  margin: 4px 3px 0px 10px;
+div.Title {
+  display: flex;
+  flex-direction: column;
   color: white;
+  margin: 4px;
+}
+
+.Search,
+.Hacker {
+  margin: 0;
+}
+
+@media screen and (max-width: 540px) {
+  .Search,
+  .Hacker {
+    display: none;
+  }
 }

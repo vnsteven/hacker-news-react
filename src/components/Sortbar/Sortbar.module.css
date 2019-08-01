@@ -1,0 +1,18 @@
+.Sortbar {
+  padding: 70px 0px 10px 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.Search {
+  font-size: 90%;
+}
+
+select {
+  display: inline-block;
+  position: relative;
+  margin-left: 10px;
+  border-radius: 3px;
+  outline-style: none;
+  font-size: 15px;
+  color: grey;
+}

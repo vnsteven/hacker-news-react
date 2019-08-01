@@ -7,8 +7,8 @@ const logo = (props) => (
   <div className={styles.Logo}>
     <img src={Logo} alt="logo" />
     <div className={styles.Title}>
-      Search <br />
-      Hacker News
+      <p className={styles.Search}>Search</p>
+      <p className={styles.Hacker}>Hacker News</p>
     </div>
   </div>
 );
