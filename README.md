@@ -1,7 +1,7 @@
 # Hacker News in React
 
 A Hacker News like website in React based on the Hacker News API.
-Check it out: https://vnsteven.github.io/test-deploy/
+Check it out: https://vnsteven.github.io/hacker-news-react/
 
 ### Features
 
