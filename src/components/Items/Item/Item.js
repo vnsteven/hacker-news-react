@@ -5,7 +5,10 @@ import styles from './Item.module.css';
 class Item extends Component {
   render() {
     return (
-      <div className={styles['Item']} onDoubleClick={this.props.doubleClicked}>
+      <div
+        className={styles['Item']}
+        onDoubleClick={this.props.doubleClicked}
+        onClick={this.props.clicked}>
         <p>
           <a
             className={styles.Title}

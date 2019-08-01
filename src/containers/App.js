@@ -10,6 +10,7 @@ class App extends Component {
   state = {
     list: [],
     initialList: [],
+    favoriteList: [],
     count: 0
   };
 
@@ -61,6 +62,11 @@ class App extends Component {
         list: this.state.initialList,
         count: this.state.initialList.length
       });
+    } else if (event.target.value === 'Favorites') {
+      this.setState({
+        list: this.state.favoriteList,
+        count: this.state.favoriteList.length
+      });
     }
   };
 
@@ -87,6 +93,14 @@ class App extends Component {
     });
   };
 
+  favoritesHandler = (item) => {
+    const element = this.state.initialList.find((el) => el.id === item);
+    const { favoriteList } = this.state;
+    if (!favoriteList.includes(element)) {
+      favoriteList.push(element);
+    }
+  };
+
   render() {
     return (
       <div className="App">
@@ -97,7 +111,11 @@ class App extends Component {
           randomChanged={this.randomChangedHandler}
           displayAll={this.displayAllHandler}
         />
-        <Items items={this.state.list} doubleClicked={this.deleteItemHandler} />
+        <Items
+          items={this.state.list}
+          delete={this.deleteItemHandler}
+          favorites={this.favoritesHandler}
+        />
         <Footer />
       </div>
     );
