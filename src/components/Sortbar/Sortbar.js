@@ -12,6 +12,7 @@ const sortbar = (props) => (
           <option>Popularity</option>
           <option>Unpopularity</option>
           <option>Title</option>
+          <option>Favorites</option>
         </select>
       </form>
     </div>

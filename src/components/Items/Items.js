@@ -16,7 +16,8 @@ class Items extends Component {
               score={item.score}
               url={item.url}
               author={item.author}
-              doubleClicked={(event) => this.props.doubleClicked(item.id)}
+              doubleClicked={() => this.props.delete(item.id)}
+              clicked={() => this.props.favorites(item.id)}
             />
           );
         })}
