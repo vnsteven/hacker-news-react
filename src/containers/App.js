@@ -11,7 +11,8 @@ class App extends Component {
     list: [],
     initialList: [],
     favoriteList: [],
-    count: 0
+    count: 0,
+    favoriteCount: 0
   };
 
   async componentDidMount() {
@@ -32,7 +33,7 @@ class App extends Component {
       });
       this.setState({ initialList: list });
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   }
 
@@ -99,6 +100,7 @@ class App extends Component {
     if (!favoriteList.includes(element)) {
       favoriteList.push(element);
     }
+    this.setState({ favoriteCount: this.state.favoriteList.length });
   };
 
   render() {
@@ -108,6 +110,7 @@ class App extends Component {
           searchbarChanged={this.matchItemHandler}
           sortbarChanged={this.sortItemHandler}
           results={this.state.count}
+          favoriteCounter={this.state.favoriteCount}
           randomChanged={this.randomChangedHandler}
           displayAll={this.displayAllHandler}
         />

@@ -16,7 +16,13 @@ const sortbar = (props) => (
         </select>
       </form>
     </div>
-    <p className={styles.Results}>{props.results} results</p>
+    <p className={styles.Results}>
+      <span className={styles.Favorite}>
+        {props.favorites}
+        <i className="fas fa-star"></i>
+      </span>
+      | {props.results} results
+    </p>
   </header>
 );
 

@@ -26,6 +26,11 @@ select {
 }
 
 .Results {
-  padding-top: -30px;
+  margin-top: 0px;
   padding-right: 50px;
+}
+
+.Favorite {
+  color: #ff742a;
+  font-weight: bold;
 }

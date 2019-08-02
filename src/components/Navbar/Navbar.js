@@ -26,6 +26,7 @@ class Navbar extends Component {
         <Sortbar
           changed={this.props.sortbarChanged}
           results={this.props.results}
+          favorites={this.props.favoriteCounter}
         />
       </Aux>
     );
