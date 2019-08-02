@@ -49,31 +49,44 @@ class App extends Component {
 
   sortItemHandler = (event) => {
     const list = [...this.state.list];
-    if (event.target.value === 'Title') {
-      const sortedList = list.sort((a, b) => (a.title > b.title ? 1 : -1));
-      this.setState({ list: sortedList, count: sortedList.length });
-    } else if (event.target.value === 'Popularity') {
-      const sortedList = list.sort((a, b) => (a.score > b.score ? -1 : 1));
-      this.setState({ list: sortedList, count: sortedList.length });
-    } else if (event.target.value === 'Unpopularity') {
-      const sortedList = list.sort((a, b) => (a.score > b.score ? 1 : -1));
-      this.setState({ list: sortedList, count: sortedList.length });
-    } else if (event.target.value === 'All') {
-      this.setState({
-        list: this.state.initialList,
-        count: this.state.initialList.length
-      });
-    } else if (event.target.value === 'Favorites') {
-      this.setState({
-        list: this.state.favoriteList,
-        count: this.state.favoriteList.length
-      });
+    const initialList = [...this.state.initialList];
+    const favoriteList = [...this.state.favoriteList];
+    const sortBy = event.target.value;
+    let sortedList = null;
+
+    switch (sortBy) {
+      default:
+      case 'Title':
+        sortedList = list.sort((a, b) => (a.title > b.title ? 1 : -1));
+        this.setState({ list: sortedList, count: sortedList.length });
+        break;
+      case 'Popularity':
+        sortedList = list.sort((a, b) => (a.score > b.score ? -1 : 1));
+        this.setState({ list: sortedList, count: sortedList.length });
+        break;
+      case 'Unpopularity':
+        sortedList = list.sort((a, b) => (a.score > b.score ? 1 : -1));
+        this.setState({ list: sortedList, count: sortedList.length });
+        break;
+      case 'All':
+        this.setState({
+          list: initialList,
+          count: initialList.length
+        });
+        break;
+      case 'Favorites':
+        this.setState({
+          list: favoriteList,
+          count: favoriteList.length
+        });
+        break;
     }
   };
 
   deleteItemHandler = (item) => {
     const list = [...this.state.list];
-    const element = this.state.initialList.find((el) => el.id === item);
+    const initialList = [...this.state.initialList];
+    const element = initialList.find((el) => el.id === item);
     list.splice(list.indexOf(element), 1);
     this.setState({ list: list, count: list.length });
   };
@@ -89,20 +102,27 @@ class App extends Component {
 
   displayAllHandler = () => {
     this.setState({
-      list: this.state.initialList,
+      list: [...this.state.initialList],
       count: this.state.initialList.length
     });
   };
 
   favoritesHandler = (item) => {
     const element = this.state.initialList.find((el) => el.id === item);
-    const { favoriteList } = this.state;
-    if (!favoriteList.includes(element)) {
-      favoriteList.push(element);
+    const favorites = [...this.state.favoriteList];
+
+    if (!favorites.includes(element)) {
+      this.setState({
+        favoriteList: [element, ...favorites],
+        favoriteCount: favorites.length + 1
+      });
     } else {
-      favoriteList.splice(favoriteList[element], 1);
+      favorites.splice(favorites.indexOf(element), 1);
+      this.setState({
+        favoriteList: favorites,
+        favoriteCount: favorites.length
+      });
     }
-    this.setState({ favoriteCount: this.state.favoriteList.length });
   };
 
   render() {
