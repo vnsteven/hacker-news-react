@@ -18,6 +18,7 @@ class Items extends Component {
               author={item.author}
               doubleClicked={() => this.props.delete(item.id)}
               clicked={() => this.props.favorites(item.id)}
+              favoriteList={this.props.favoriteList}
             />
           );
         })}

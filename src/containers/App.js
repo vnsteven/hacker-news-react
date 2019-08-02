@@ -115,6 +115,7 @@ class App extends Component {
           items={this.state.list}
           delete={this.deleteItemHandler}
           favorites={this.favoritesHandler}
+          favoriteList={this.state.favoriteList}
         />
         <Footer />
       </div>

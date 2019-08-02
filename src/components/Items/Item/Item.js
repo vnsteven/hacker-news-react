@@ -3,12 +3,35 @@ import React, { Component } from 'react';
 import styles from './Item.module.css';
 
 class Item extends Component {
+  state = {
+    favorite: false
+  };
+
+  changeColor = () => {
+    this.setState({ favorite: true });
+  };
+
   render() {
+    const favoriteItem = this.props.favoriteList.find(
+      (obj) => obj.title === this.props.title
+    );
+
+    let itemClass = null;
+
+    if (this.state.favorite || favoriteItem) {
+      itemClass = 'ItemFavorite';
+    } else {
+      itemClass = 'Item';
+    }
+
     return (
       <div
-        className={styles.Item}
+        className={styles[itemClass]}
         onDoubleClick={this.props.doubleClicked}
-        onClick={this.props.clicked}>
+        onClick={() => {
+          this.changeColor();
+          this.props.clicked();
+        }}>
         <p>
           <a
             className={styles.Title}

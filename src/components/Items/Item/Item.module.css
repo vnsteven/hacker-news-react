@@ -5,6 +5,13 @@
   padding: 1px 15px 0px;
 }
 
+.ItemFavorite {
+  width: 100%;
+  border: 1px solid #eeeeee;
+  background-color: #c4c4c4;
+  padding: 1px 15px 0px;
+}
+
 .Subtitles {
   font-size: 80%;
   color: grey;
