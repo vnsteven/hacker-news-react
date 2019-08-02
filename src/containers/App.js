@@ -99,6 +99,8 @@ class App extends Component {
     const { favoriteList } = this.state;
     if (!favoriteList.includes(element)) {
       favoriteList.push(element);
+    } else {
+      favoriteList.splice(favoriteList[element], 1);
     }
     this.setState({ favoriteCount: this.state.favoriteList.length });
   };

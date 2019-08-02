@@ -8,7 +8,11 @@ class Item extends Component {
   };
 
   changeColor = () => {
-    this.setState({ favorite: true });
+    if (!this.state.favorite) {
+      this.setState({ favorite: true });
+    } else {
+      this.setState({ favorite: false });
+    }
   };
 
   render() {
@@ -18,7 +22,7 @@ class Item extends Component {
 
     let itemClass = null;
 
-    if (this.state.favorite || favoriteItem) {
+    if (this.state.favorite && favoriteItem) {
       itemClass = 'ItemFavorite';
     } else {
       itemClass = 'Item';
