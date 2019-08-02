@@ -19,19 +19,23 @@ class App extends Component {
     try {
       const fetchingData = await axios.get('topstories.json');
       const itemIds = await fetchingData.data;
-      const list = [];
+      console.log(itemIds);
       itemIds.forEach((id) => {
         axios.get(`item/${id}.json`).then((res) =>
-          list.push({
-            id: res.data.id,
-            title: res.data.title,
-            score: res.data.score,
-            url: res.data.url,
-            author: res.data.by
+          this.setState({
+            initialList: [
+              ...this.state.initialList,
+              {
+                id: res.data.id,
+                title: res.data.title,
+                score: res.data.score,
+                url: res.data.url,
+                author: res.data.by
+              }
+            ]
           })
         );
       });
-      this.setState({ initialList: list });
     } catch (err) {
       console.error(err);
     }
