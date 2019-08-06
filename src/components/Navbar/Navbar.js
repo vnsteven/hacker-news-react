@@ -1,9 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 
 import Logo from '../Logo/Logo';
 import Searchbar from '../Searchbar/Searchbar';
 import Sortbar from '../Sortbar/Sortbar';
-import Aux from '../../hoc/Aux';
 import RandomButton from '../RandomButton/RandomButton';
 
 import styles from './Navbar.module.css';
@@ -11,7 +10,7 @@ import styles from './Navbar.module.css';
 class Navbar extends Component {
   render() {
     return (
-      <Aux>
+      <Fragment>
         <header className={styles.Navbar}>
           <div>
             <Logo clicked={this.props.displayAll} />
@@ -28,7 +27,7 @@ class Navbar extends Component {
           results={this.props.results}
           favorites={this.props.favoriteCounter}
         />
-      </Aux>
+      </Fragment>
     );
   }
 }
