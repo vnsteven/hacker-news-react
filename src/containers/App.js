@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import * as actionTypes from '../store/actions';
 
 import Navbar from '../components/Navbar/Navbar';
 import Footer from '../components/Footer/Footer';
 import Items from '../components/Items/Items';
 import './App.css';
 import axios from './axios-hn.js';
+import state from '../store/reducer';
 
 class App extends Component {
   state = {
@@ -19,7 +22,6 @@ class App extends Component {
     try {
       const fetchingData = await axios.get('topstories.json');
       const itemIds = await fetchingData.data;
-      console.log(itemIds);
       itemIds.forEach((id) => {
         axios.get(`item/${id}.json`).then((res) =>
           this.setState({
@@ -104,13 +106,6 @@ class App extends Component {
     });
   };
 
-  displayAllHandler = () => {
-    this.setState({
-      list: [...this.state.initialList],
-      count: this.state.initialList.length
-    });
-  };
-
   favoritesHandler = (item) => {
     const element = this.state.initialList.find((el) => el.id === item);
     const favorites = [...this.state.favoriteList];
@@ -138,7 +133,7 @@ class App extends Component {
           results={this.state.count}
           favoriteCounter={this.state.favoriteCount}
           randomChanged={this.randomChangedHandler}
-          displayAll={this.displayAllHandler}
+          displayAll={() => this.props.displayAll(this.state.initialList)}
         />
         <Items
           items={this.state.list}
@@ -152,4 +147,19 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    displayAll: (list) =>
+      dispatch({
+        type: actionTypes.DISPLAY,
+        initialList: list
+      })
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
