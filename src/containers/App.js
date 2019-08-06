@@ -105,6 +105,13 @@ class App extends Component {
     });
   };
 
+  displayAllHandler = () => {
+    this.setState({
+      list: [...this.state.initialList],
+      count: this.state.initialList.length
+    });
+  };
+
   favoritesHandler = (item) => {
     const element = this.state.initialList.find((el) => el.id === item);
     const favorites = [...this.state.favoriteList];
@@ -156,4 +163,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapDispatchToProps)(App);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
