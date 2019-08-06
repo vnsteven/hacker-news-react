@@ -7,7 +7,6 @@ import Footer from '../components/Footer/Footer';
 import Items from '../components/Items/Items';
 import './App.css';
 import axios from './axios-hn.js';
-import state from '../store/reducer';
 
 class App extends Component {
   state = {
@@ -147,8 +146,6 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = (state) => {};
-
 const mapDispatchToProps = (dispatch) => {
   return {
     displayAll: (list) =>
@@ -159,7 +156,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App);
+export default connect(mapDispatchToProps)(App);
