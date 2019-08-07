@@ -7,6 +7,7 @@ import Footer from '../components/Footer/Footer';
 import Items from '../components/Items/Items';
 import './App.css';
 import axios from './axios-hn.js';
+import state from '../store/reducer';
 
 class App extends Component {
   state = {
@@ -21,6 +22,7 @@ class App extends Component {
     try {
       const fetchingData = await axios.get('topstories.json');
       const itemIds = await fetchingData.data;
+      console.log(itemIds);
       itemIds.forEach((id) => {
         axios.get(`item/${id}.json`).then((res) =>
           this.setState({
@@ -139,11 +141,14 @@ class App extends Component {
           results={this.state.count}
           favoriteCounter={this.state.favoriteCount}
           randomChanged={this.randomChangedHandler}
-          displayAll={() => this.props.displayAll(this.state.initialList)}
+          displayAll={this.displayAllHandler}
         />
         <Items
           items={this.state.list}
-          delete={this.deleteItemHandler}
+          delete={
+            /*(id) => this.props.deleteItem(id, this.state.list)*/ this
+              .deleteItemHandler
+          }
           favorites={this.favoritesHandler}
           favoriteList={this.state.favoriteList}
         />
@@ -153,14 +158,20 @@ class App extends Component {
   }
 }
 
+const mapStateToProps = (state) => {};
+
 const mapDispatchToProps = (dispatch) => {
   return {
-    displayAll: (list) =>
+    deleteItem: (id, list) =>
       dispatch({
-        type: actionTypes.DISPLAY,
-        initialList: list
+        type: actionTypes.DELETE,
+        itemId: id,
+        list: list
       })
   };
 };
 
-export default connect(mapDispatchToProps)(App);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
