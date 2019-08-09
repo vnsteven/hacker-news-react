@@ -12,6 +12,7 @@ class Items extends Component {
           return (
             <Item
               key={item.id}
+              id={item.id}
               title={item.title}
               score={item.score}
               url={item.url}

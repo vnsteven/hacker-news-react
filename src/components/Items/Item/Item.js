@@ -53,8 +53,9 @@ class Item extends Component {
               pathname: '/comments',
               search: `?story=${this.props.id}&author=${this.props.author}`
             }}
-            onClick={() => this.props.commentList(this.props.id)}>
-            Comments
+            onClick={() => this.props.commentList(this.props.id)}
+            className={styles.Link}>
+            Comments{' '}
           </Link>
           |{' '}
           <a
