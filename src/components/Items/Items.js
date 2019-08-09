@@ -19,6 +19,7 @@ class Items extends Component {
               doubleClicked={() => this.props.delete(item.id)}
               clicked={() => this.props.favorites(item.id)}
               favoriteList={this.props.favoriteList}
+              commentList={() => this.props.commentList(item.kids)}
             />
           );
         })}

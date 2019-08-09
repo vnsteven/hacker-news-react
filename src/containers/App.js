@@ -7,13 +7,16 @@ import Footer from '../components/Footer/Footer';
 import Items from '../components/Items/Items';
 import './App.css';
 import axios from './axios-hn.js';
-import state from '../store/reducer';
+//import state from '../store/reducer';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import Comments from '../components/Comments/Comments';
 
 class App extends Component {
   state = {
     list: [],
     initialList: [],
     favoriteList: [],
+    commentList: [],
     count: 0,
     favoriteCount: 0
   };
@@ -33,7 +36,9 @@ class App extends Component {
                 title: res.data.title,
                 score: res.data.score,
                 url: res.data.url,
-                author: res.data.by
+                author: res.data.by,
+                time: res.data.time,
+                kids: res.data.kids
               }
             ]
           })
@@ -132,46 +137,74 @@ class App extends Component {
     }
   };
 
+  commentHandler = (kids) => {
+    kids.forEach((kid) => {
+      axios.get(`/item/${kid}.json`).then((res) => {
+        this.setState({
+          commentList: [
+            ...this.state.commentList,
+            {
+              id: res.data.id,
+              author: res.data.by,
+              text: res.data.text
+            }
+          ]
+        });
+      });
+    });
+  };
+
   render() {
     return (
-      <div className="App">
-        <Navbar
-          searchbarChanged={this.matchItemHandler}
-          sortbarChanged={this.sortItemHandler}
-          results={this.state.count}
-          favoriteCounter={this.state.favoriteCount}
-          randomChanged={this.randomChangedHandler}
-          displayAll={this.displayAllHandler}
-        />
-        <Items
-          items={this.state.list}
-          delete={
-            /*(id) => this.props.deleteItem(id, this.state.list)*/ this
-              .deleteItemHandler
-          }
-          favorites={this.favoritesHandler}
-          favoriteList={this.state.favoriteList}
-        />
-        <Footer />
-      </div>
+      <BrowserRouter>
+        <div className="App">
+          <Navbar
+            searchbarChanged={this.matchItemHandler}
+            sortbarChanged={this.sortItemHandler}
+            results={this.state.count}
+            favoriteCounter={this.state.favoriteCount}
+            randomChanged={this.randomChangedHandler}
+            displayAll={this.displayAllHandler}
+          />
+          <Switch>
+            <Route
+              path="/"
+              exact
+              component={() => (
+                <Items
+                  items={this.state.list}
+                  delete={
+                    /*(id) => this.props.deleteItem(id, this.state.list)*/ this
+                      .deleteItemHandler
+                  }
+                  favorites={this.favoritesHandler}
+                  favoriteList={this.state.favoriteList}
+                  commentList={this.commentHandler}
+                />
+              )}
+            />
+            <Route
+              path="/comments"
+              component={() => <Comments comments={this.state.commentList} />}
+            />
+          </Switch>
+          <Footer />
+        </div>
+      </BrowserRouter>
     );
   }
 }
-
-const mapStateToProps = (state) => {};
 
 const mapDispatchToProps = (dispatch) => {
   return {
     deleteItem: (id, list) =>
       dispatch({
-        type: actionTypes.DELETE,
-        itemId: id,
-        list: list
+        type: actionTypes.DELETE
       })
   };
 };
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(App);

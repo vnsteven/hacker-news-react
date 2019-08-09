@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 import styles from './Item.module.css';
 
@@ -47,6 +48,15 @@ class Item extends Component {
         </p>
         <p className={styles.Subtitles}>
           {this.props.score} points | {this.props.author} |{' '}
+          <Link
+            to={{
+              pathname: '/comments',
+              search: `?story=${this.props.id}&author=${this.props.author}`
+            }}
+            onClick={() => this.props.commentList(this.props.id)}>
+            Comments
+          </Link>
+          |{' '}
           <a
             className={styles.Link}
             href={this.props.url}

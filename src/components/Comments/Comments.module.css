@@ -1,0 +1,10 @@
+.List {
+  display: block;
+  height: 84vh;
+  width: 100%;
+  padding-top: 115px;
+  padding-right: 40px;
+  margin: 0;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
