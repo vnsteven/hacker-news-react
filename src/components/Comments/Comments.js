@@ -6,7 +6,7 @@ const comments = (props) => (
   <div className={styles.List}>
     {props.comments.map((comment) => {
       return (
-        <Comment id={comment.id} author={comment.author} text={comment.text} />
+        <Comment key={comment.id} author={comment.author} text={comment.text} />
       );
     })}
   </div>
