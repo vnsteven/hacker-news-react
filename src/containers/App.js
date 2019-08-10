@@ -165,8 +165,11 @@ class App extends Component {
           />
           <Switch>
             <Route
+              path="/comments"
+              component={() => <Comments comments={this.state.commentList} />}
+            />
+            <Route
               path="/"
-              exact
               component={() => (
                 <Items
                   items={this.state.list}
@@ -179,10 +182,6 @@ class App extends Component {
                   commentList={this.commentHandler}
                 />
               )}
-            />
-            <Route
-              path="/comments"
-              component={() => <Comments comments={this.state.commentList} />}
             />
           </Switch>
           <Footer />
