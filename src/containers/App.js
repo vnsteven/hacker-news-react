@@ -22,7 +22,6 @@ class App extends Component {
     try {
       const fetchingData = await axios.get('topstories.json');
       const itemIds = await fetchingData.data;
-      console.log(itemIds);
       itemIds.forEach((id) => {
         axios.get(`item/${id}.json`).then((res) =>
           this.setState({

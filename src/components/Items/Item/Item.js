@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 
 import styles from './Item.module.css';
 
@@ -24,7 +25,7 @@ class Item extends Component {
     let itemClass = null;
     let commentCount = 0;
 
-    if (this.state.favorite && favoriteItem) {
+    if (this.state.favorite || favoriteItem) {
       itemClass = 'ItemFavorite';
     } else {
       itemClass = 'Item';
@@ -52,7 +53,8 @@ class Item extends Component {
           </a>
         </p>
         <p className={styles.Subtitles}>
-          {this.props.score} points | {this.props.author} | {this.props.time} |{' '}
+          {this.props.score} points | {this.props.author} |{' '}
+          {moment(`${new Date(this.props.time * 1000)}`).fromNow()} |{' '}
           <Link
             to={{
               pathname: '/comments',
@@ -60,7 +62,7 @@ class Item extends Component {
             }}
             onClick={() => this.props.commentList(this.props.id)}
             className={styles.Link}>
-            {commentCount} Comments{' '}
+            {commentCount} comments{' '}
           </Link>
           |{' '}
           <a
