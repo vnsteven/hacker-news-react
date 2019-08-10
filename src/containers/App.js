@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import * as actionTypes from '../store/actions';
 
 import Navbar from '../components/Navbar/Navbar';
 import Footer from '../components/Footer/Footer';
 import Items from '../components/Items/Items';
 import './App.css';
 import axios from './axios-hn.js';
-//import state from '../store/reducer';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Comments from '../components/Comments/Comments';
 
@@ -195,16 +192,4 @@ class App extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    deleteItem: (id, list) =>
-      dispatch({
-        type: actionTypes.DELETE
-      })
-  };
-};
-
-export default connect(
-  null,
-  mapDispatchToProps
-)(App);
+export default App;
