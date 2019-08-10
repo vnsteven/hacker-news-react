@@ -3,6 +3,7 @@
   border: 1px solid #eeeeee;
   background-color: #f6f6ef;
   padding: 1px 15px 0px;
+  padding-right: 2000px;
 }
 
 .ItemFavorite {
@@ -20,6 +21,10 @@
 .Link {
   text-decoration: none;
   color: grey;
+}
+
+.Link:hover {
+  text-decoration: underline dotted;
 }
 
 .Title {

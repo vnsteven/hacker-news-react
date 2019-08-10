@@ -35,6 +35,22 @@ class Item extends Component {
       commentCount = this.props.comments.length;
     }
 
+    let commentLink = '0 comment';
+
+    if (this.props.comments) {
+      commentLink = (
+        <Link
+          to={{
+            pathname: '/comments',
+            search: `?story=${this.props.id}&author=${this.props.author}`
+          }}
+          onClick={() => this.props.commentList(this.props.id)}
+          className={styles.Link}>
+          {commentCount} comments{' '}
+        </Link>
+      );
+    }
+
     return (
       <div
         className={styles[itemClass]}
@@ -55,16 +71,7 @@ class Item extends Component {
         <p className={styles.Subtitles}>
           {this.props.score} points | {this.props.author} |{' '}
           {moment(`${new Date(this.props.time * 1000)}`).fromNow()} |{' '}
-          <Link
-            to={{
-              pathname: '/comments',
-              search: `?story=${this.props.id}&author=${this.props.author}`
-            }}
-            onClick={() => this.props.commentList(this.props.id)}
-            className={styles.Link}>
-            {commentCount} comments{' '}
-          </Link>
-          |{' '}
+          {commentLink} |{' '}
           <a
             className={styles.Link}
             href={this.props.url}
