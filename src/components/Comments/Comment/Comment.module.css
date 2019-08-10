@@ -2,5 +2,13 @@
   width: 100%;
   border: 1px solid #eeeeee;
   background-color: #f6f6ef;
-  padding: 1px 15px 0px;
+  padding: 0px 15px 0px 10px;
+}
+
+.Text {
+  font-size: 90%;
+}
+
+.Author {
+  font-weight: bold;
 }

@@ -135,6 +135,7 @@ class App extends Component {
   };
 
   commentHandler = (kids) => {
+    this.setState({ commentList: [] });
     kids.forEach((kid) => {
       axios.get(`/item/${kid}.json`).then((res) => {
         this.setState({

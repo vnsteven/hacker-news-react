@@ -4,6 +4,7 @@ import Logo from '../Logo/Logo';
 import Searchbar from '../Searchbar/Searchbar';
 import Sortbar from '../Sortbar/Sortbar';
 import RandomButton from '../RandomButton/RandomButton';
+import { Link, Switch, Route } from 'react-router-dom';
 
 import styles from './Navbar.module.css';
 
@@ -13,7 +14,20 @@ class Navbar extends Component {
       <Fragment>
         <header className={styles.Navbar}>
           <div>
-            <Logo clicked={this.props.displayAll} />
+            <Switch>
+              <Route
+                path="/comments"
+                component={() => (
+                  <Link to="/" style={{ textDecoration: 'none' }}>
+                    <Logo clicked={this.props.displayAll} />
+                  </Link>
+                )}
+              />
+              <Route
+                path="/"
+                component={() => <Logo clicked={this.props.displayAll} />}
+              />
+            </Switch>
           </div>
           <div className={styles.Searchbar}>
             <Searchbar changed={this.props.searchbarChanged} />

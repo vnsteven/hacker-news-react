@@ -17,6 +17,8 @@ class Items extends Component {
               score={item.score}
               url={item.url}
               author={item.author}
+              time={item.time}
+              comments={item.kids}
               doubleClicked={() => this.props.delete(item.id)}
               clicked={() => this.props.favorites(item.id)}
               favoriteList={this.props.favoriteList}

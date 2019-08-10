@@ -22,11 +22,16 @@ class Item extends Component {
     );
 
     let itemClass = null;
+    let commentCount = 0;
 
     if (this.state.favorite && favoriteItem) {
       itemClass = 'ItemFavorite';
     } else {
       itemClass = 'Item';
+    }
+
+    if (this.props.comments) {
+      commentCount = this.props.comments.length;
     }
 
     return (
@@ -47,7 +52,7 @@ class Item extends Component {
           </a>
         </p>
         <p className={styles.Subtitles}>
-          {this.props.score} points | {this.props.author} |{' '}
+          {this.props.score} points | {this.props.author} | {this.props.time} |{' '}
           <Link
             to={{
               pathname: '/comments',
@@ -55,7 +60,7 @@ class Item extends Component {
             }}
             onClick={() => this.props.commentList(this.props.id)}
             className={styles.Link}>
-            Comments{' '}
+            {commentCount} Comments{' '}
           </Link>
           |{' '}
           <a

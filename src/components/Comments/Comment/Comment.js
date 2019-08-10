@@ -3,7 +3,12 @@ import styles from './Comment.module.css';
 
 const comment = (props) => (
   <div className={styles.Comment}>
-    {props.author} : {props.text}
+    <div className={styles.Author}>
+      <p>{props.author}</p>
+    </div>
+    <div className={styles.Text}>
+      <p>{props.text.replace(/<(.|\n)*?>/g, '')}</p>
+    </div>
   </div>
 );
 

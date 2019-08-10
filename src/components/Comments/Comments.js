@@ -3,7 +3,7 @@ import Comment from './Comment/Comment';
 import styles from './Comments.module.css';
 
 const comments = (props) => (
-  <div className={styles.List}>
+  <div className={styles.Comments}>
     {props.comments.map((comment) => {
       return (
         <Comment key={comment.id} author={comment.author} text={comment.text} />
