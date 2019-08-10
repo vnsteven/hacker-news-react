@@ -2,6 +2,10 @@
 
 A Hacker News like website in React based on the Hacker News API.
 
+## About
+
+It could take a few time to fetch data.
+
 ## Features
 
 - Click on the `Search Hacker News` logo to display all the stories
@@ -11,6 +15,7 @@ A Hacker News like website in React based on the Hacker News API.
 - Double click on an item to delete it
 - Click on an item to add it to your favorite list
 - Sort by alphabetic order, popularity or favorites
+- Click on comments to see all the comments associated to the story
 
 ## API
 
