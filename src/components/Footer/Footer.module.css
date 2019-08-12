@@ -12,6 +12,7 @@ ul {
 
 li {
   margin: 3px;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 700px) {

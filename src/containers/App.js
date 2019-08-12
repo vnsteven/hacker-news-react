@@ -41,20 +41,6 @@ class App extends Component {
         initialList: [...result],
         count: result.length
       });
-
-      const promises2 = data
-        .slice(11, 50)
-        .map((id) =>
-          axios.get(`item/${id}.json`).then((response) => response.data)
-        );
-
-      const result2 = await Promise.all(promises2);
-
-      this.setState({
-        list: [...this.state.list, ...result2],
-        initialList: [...this.state.initialList, ...result2],
-        count: result2.length + result.length + 1
-      });
     } catch (err) {
       console.error(err);
     }
@@ -191,6 +177,24 @@ class App extends Component {
     });
   };
 
+  pageHandler = async (num) => {
+    const response = await axios.get('topstories.json');
+    const data = await response.data;
+    const promises = data
+      .slice(parseInt(`${num - 1}0`), parseInt(`${num}0`))
+      .map((id) =>
+        axios.get(`item/${id}.json`).then((response) => response.data)
+      );
+
+    const result = await Promise.all(promises);
+
+    this.setState({
+      list: [...result],
+      initialList: [this.state.initialList, ...result],
+      count: result.length
+    });
+  };
+
   render() {
     return (
       <BrowserRouter>
@@ -224,7 +228,7 @@ class App extends Component {
               )}
             />
           </Switch>
-          <Footer />
+          <Footer page={this.pageHandler} />
         </div>
       </BrowserRouter>
     );

@@ -2,22 +2,22 @@ import React from 'react';
 
 import './Footer.module.css';
 
-const footer = () => (
+const footer = (props) => (
   <footer>
     <ul>
-      <li>About</li>
+      <li onClick={() => props.page(1)}>1</li>
       <li>•</li>
-      <li>Setting</li>
+      <li onClick={() => props.page(2)}>2</li>
       <li>•</li>
-      <li>Help</li>
+      <li onClick={() => props.page(3)}>3</li>
       <li>•</li>
-      <li>Hacker News</li>
+      <li onClick={() => props.page(4)}>4</li>
       <li>•</li>
-      <li>Fork/Contribute</li>
+      <li onClick={() => props.page(5)}>5</li>
       <li>•</li>
-      <li>Status</li>
+      <li onClick={() => props.page(6)}>6</li>
       <li>•</li>
-      <li>Cool apps</li>
+      <li onClick={() => props.page(7)}>7</li>
     </ul>
   </footer>
 );
