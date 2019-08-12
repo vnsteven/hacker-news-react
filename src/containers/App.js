@@ -5,8 +5,10 @@ import Footer from '../components/Footer/Footer';
 import Items from '../components/Items/Items';
 import './App.css';
 import axios from './axios-hn.js';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import Comments from '../components/Comments/Comments';
+import { connect } from 'react-redux';
+import * as actionTypes from '../store/actions';
 
 class App extends Component {
   state = {
@@ -35,6 +37,8 @@ class App extends Component {
         );
 
       const result = await Promise.all(promises);
+
+      console.log(result);
 
       this.setState({
         list: [...result],
@@ -197,42 +201,55 @@ class App extends Component {
 
   render() {
     return (
-      <BrowserRouter>
-        <div className="App">
-          <Navbar
-            searchbarChanged={this.matchItemHandler}
-            sortbarChanged={this.sortItemHandler}
-            results={this.state.count}
-            favoriteCounter={this.state.favoriteCount}
-            randomChanged={this.randomChangedHandler}
-            displayAll={this.displayAllHandler}
+      <div className="App">
+        <Navbar
+          searchbarChanged={this.matchItemHandler}
+          sortbarChanged={this.sortItemHandler}
+          results={this.state.count}
+          favoriteCounter={this.state.favoriteCount}
+          randomChanged={this.randomChangedHandler}
+          displayAll={this.props.displayAll}
+        />
+        <Switch>
+          <Route
+            path="/comments"
+            component={() => <Comments comments={this.state.commentList} />}
           />
-          <Switch>
-            <Route
-              path="/comments"
-              component={() => <Comments comments={this.state.commentList} />}
-            />
-            <Route
-              path="/"
-              component={() => (
-                <Items
-                  items={this.state.list}
-                  delete={
-                    /*(id) => this.props.deleteItem(id, this.state.list)*/ this
-                      .deleteItemHandler
-                  }
-                  favorites={this.favoritesHandler}
-                  favoriteList={this.state.favoriteList}
-                  commentList={this.commentHandler}
-                />
-              )}
-            />
-          </Switch>
-          <Footer page={this.pageHandler} />
-        </div>
-      </BrowserRouter>
+          <Route
+            path="/"
+            component={() => (
+              <Items
+                items={this.props.list}
+                delete={
+                  /*(id) => this.props.deleteItem(id, this.state.list)*/ this
+                    .deleteItemHandler
+                }
+                favorites={this.favoritesHandler}
+                favoriteList={this.state.favoriteList}
+                commentList={this.commentHandler}
+              />
+            )}
+          />
+        </Switch>
+        <Footer page={this.pageHandler} />
+      </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    list: state.list
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    displayAll: () => dispatch({ type: actionTypes.DISPLAY_ALL })
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
