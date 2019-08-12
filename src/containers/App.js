@@ -190,7 +190,7 @@ class App extends Component {
 
     this.setState({
       list: [...result],
-      initialList: [this.state.initialList, ...result],
+      initialList: [...result],
       count: result.length
     });
   };
