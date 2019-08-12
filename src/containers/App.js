@@ -20,29 +20,69 @@ class App extends Component {
 
   async componentDidMount() {
     try {
-      const fetchingData = await axios.get('topstories.json');
-      const itemIds = await fetchingData.data;
-      itemIds.forEach((id) => {
-        axios.get(`item/${id}.json`).then((res) =>
-          this.setState({
-            initialList: [
-              ...this.state.initialList,
-              {
-                id: res.data.id,
-                title: res.data.title,
-                score: res.data.score,
-                url: res.data.url,
-                author: res.data.by,
-                time: res.data.time,
-                kids: res.data.kids
-              }
-            ]
-          })
+      const response = await axios.get('topstories.json');
+
+      if (!response) {
+        throw new Error('Error');
+      }
+
+      const data = await response.data;
+
+      const promises = data
+        .slice(0, 10)
+        .map((id) =>
+          axios.get(`item/${id}.json`).then((response) => response.data)
         );
+
+      const result = await Promise.all(promises);
+
+      this.setState({
+        list: [...result],
+        initialList: [...result],
+        count: result.length
+      });
+
+      const promises2 = data
+        .slice(11, 50)
+        .map((id) =>
+          axios.get(`item/${id}.json`).then((response) => response.data)
+        );
+
+      const result2 = await Promise.all(promises2);
+
+      this.setState({
+        list: [...this.state.list, ...result2],
+        initialList: [...this.state.initialList, ...result2],
+        count: result2.length + result.length + 1
       });
     } catch (err) {
       console.error(err);
     }
+
+    //try {
+    //  const fetchingData = await axios.get('topstories.json');
+    //  const itemIds = await fetchingData.data;
+    //  itemIds.forEach((id) => {
+    //    axios.get(`item/${id}.json`).then((res) =>
+    //      this.setState({
+    //        initialList: [
+    //          ...this.state.initialList,
+    //          {
+    //            id: res.data.id,
+    //            title: res.data.title,
+    //            score: res.data.score,
+    //            url: res.data.url,
+    //            author: res.data.by,
+    //            time: res.data.time,
+    //            kids: res.data.kids
+    //          }
+    //        ]
+    //      })
+    //    );
+    //  });
+    //} catch (err) {
+    //  console.error(err);
+    //}
   }
 
   matchItemHandler = (event) => {
@@ -111,12 +151,12 @@ class App extends Component {
   displayAllHandler = () => {
     this.setState({
       list: [...this.state.initialList],
-      count: this.state.initialList.length
+      count: this.state.list.length
     });
   };
 
   favoritesHandler = (item) => {
-    const element = this.state.initialList.find((el) => el.id === item);
+    const element = this.state.list.find((el) => el.id === item);
     const favorites = [...this.state.favoriteList];
 
     if (!favorites.includes(element)) {
