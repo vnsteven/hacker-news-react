@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import Navbar from '../components/Navbar/Navbar';
 import Footer from '../components/Footer/Footer';
@@ -7,8 +8,7 @@ import './App.css';
 import axios from './axios-hn.js';
 import { Switch, Route } from 'react-router-dom';
 import Comments from '../components/Comments/Comments';
-import { connect } from 'react-redux';
-import * as actionTypes from '../store/actions';
+import * as actions from '../store/index';
 
 class App extends Component {
   state = {
@@ -20,59 +20,8 @@ class App extends Component {
     favoriteCount: 0
   };
 
-  async componentDidMount() {
-    try {
-      const response = await axios.get('topstories.json');
-
-      if (!response) {
-        throw new Error('Error');
-      }
-
-      const data = await response.data;
-
-      const promises = data
-        .slice(0, 10)
-        .map((id) =>
-          axios.get(`item/${id}.json`).then((response) => response.data)
-        );
-
-      const result = await Promise.all(promises);
-
-      console.log(result);
-
-      this.setState({
-        list: [...result],
-        initialList: [...result],
-        count: result.length
-      });
-    } catch (err) {
-      console.error(err);
-    }
-
-    //try {
-    //  const fetchingData = await axios.get('topstories.json');
-    //  const itemIds = await fetchingData.data;
-    //  itemIds.forEach((id) => {
-    //    axios.get(`item/${id}.json`).then((res) =>
-    //      this.setState({
-    //        initialList: [
-    //          ...this.state.initialList,
-    //          {
-    //            id: res.data.id,
-    //            title: res.data.title,
-    //            score: res.data.score,
-    //            url: res.data.url,
-    //            author: res.data.by,
-    //            time: res.data.time,
-    //            kids: res.data.kids
-    //          }
-    //        ]
-    //      })
-    //    );
-    //  });
-    //} catch (err) {
-    //  console.error(err);
-    //}
+  componentDidMount() {
+    this.props.onInitData();
   }
 
   matchItemHandler = (event) => {
@@ -198,7 +147,6 @@ class App extends Component {
       count: result.length
     });
   };
-
   render() {
     return (
       <div className="App">
@@ -208,7 +156,7 @@ class App extends Component {
           results={this.state.count}
           favoriteCounter={this.state.favoriteCount}
           randomChanged={this.randomChangedHandler}
-          displayAll={this.props.displayAll}
+          displayAll={this.displayAll}
         />
         <Switch>
           <Route
@@ -220,10 +168,7 @@ class App extends Component {
             component={() => (
               <Items
                 items={this.props.list}
-                delete={
-                  /*(id) => this.props.deleteItem(id, this.state.list)*/ this
-                    .deleteItemHandler
-                }
+                delete={this.deleteItemHandler}
                 favorites={this.favoritesHandler}
                 favoriteList={this.state.favoriteList}
                 commentList={this.commentHandler}
@@ -245,7 +190,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    displayAll: () => dispatch({ type: actionTypes.DISPLAY_ALL })
+    onInitData: () => dispatch(actions.initData())
   };
 };
 
