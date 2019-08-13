@@ -51,10 +51,13 @@ class Item extends Component {
       );
     }
 
+    const time = this.props.time * 1000;
+    const date = new Date(time);
+    const timeFromNow = moment(date).fromNow();
+
     return (
       <div
         className={styles[itemClass]}
-        onDoubleClick={this.props.doubleClicked}
         onClick={() => {
           this.changeColor();
           this.props.clicked();
@@ -69,8 +72,7 @@ class Item extends Component {
           </a>
         </p>
         <p className={styles.Subtitles}>
-          {this.props.score} points | {this.props.author} |{' '}
-          {moment(`${new Date(this.props.time * 1000)}`).fromNow()} |{' '}
+          {this.props.score} points | {this.props.author} | {timeFromNow} |{' '}
           {commentLink} |{' '}
           <a
             className={styles.Link}

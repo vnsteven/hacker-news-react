@@ -10,7 +10,7 @@ import App from './containers/App';
 import * as serviceWorker from './serviceWorker';
 import 'font-awesome/css/font-awesome.min.css';
 
-import reducer from './store/reducer';
+import reducer from './store/reducers/reducer';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
